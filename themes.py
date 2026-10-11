@@ -2,11 +2,11 @@
 import re
 from pathlib import Path
 from rockies import t,T
-BRAND='生生不息探險隊'
-ENBRAND='Sheng Sheng Expeditions'
+BRAND='Sheng Exploration'
+ENBRAND='Sheng Exploration'
 
 def brand(s):
- return s.replace('公園隨行',BRAND).replace('NATIONAL PARK FIELD GUIDE','SHENG SHENG EXPEDITIONS').replace('National Park Field Guide',ENBRAND)
+ return s.replace('公園隨行',BRAND).replace('NATIONAL PARK FIELD GUIDE','SHENG EXPLORATION').replace('SHENG SHENG EXPEDITIONS','SHENG EXPLORATION').replace('Sheng Sheng Expeditions','Sheng Exploration').replace('生生不息探險隊','Sheng Exploration').replace('National Park Field Guide',ENBRAND)
 
 def render_themes(ROOT,D,head):
  for zh,en in [(' / 交通與旅行準備',' / Getting There & Travel Essentials'),(' / 美國國家公園',' / U.S. National Parks'),(' / 自然景觀與戶外',' / Nature & Outdoors'),('AI-assisted build · 旅行紀錄與規劃參考','AI-assisted build · Travel journals and planning guidance'),('從一座公園開始。','Begin with one park.'),('讓好奇心繼續旅行。','Let curiosity keep traveling.'),('走進風景，','Step into the landscape.')]:t(zh,en)
@@ -33,7 +33,7 @@ def render_themes(ROOT,D,head):
  for i,c in enumerate(cards):
   if not (D/'assets'/c[3]).exists():cards[i]=(*c[:3],'kenai.jpg',*c[4:])
  s=head(BRAND)+'<nav class="tabs"><a href="#themes">'+t('主題導覽','Explore by theme')+'</a><a href="themes/us-national-parks/#map">'+t('公園地圖','Park map')+'</a><a href="themes/us-national-parks/#routes">'+t('完整旅行路線','Complete journeys')+'</a></nav>'
- s+='<section class="expedition-hero"><div class="expedition-copy"><p class="eyebrow">SHENG SHENG EXPEDITIONS</p><h1>'+BRAND+'</h1><p class="expedition-tagline">'+t('走進風景，<br>讓好奇心繼續旅行。','Step into the landscape.<br>Let curiosity keep traveling.')+'</p><p>'+t('從親身走過的路出發，分享景點故事、交通銜接與可照著安排的旅程。選一個主題，開始下一段探索。','Starting with journeys we have taken, we share place stories, practical connections and itineraries you can follow. Choose a theme and begin your next exploration.')+'</p><a class="cta primary" href="#themes">'+t('選擇旅行主題 ↓','Choose a travel theme ↓')+'</a></div><a class="expedition-art" href="themes/us-national-parks/#map" aria-label="'+t('探索美國國家公園地圖','Explore the U.S. national parks map')+'">'+photo('us-illustrated-map.webp','美國地景與阿拉斯加、夏威夷的手繪風格旅行插畫','Illustrated U.S. landscapes with Alaska and Hawaii insets')+'<span>'+t('第一個主題 · 美國國家公園 ↗','Featured theme · U.S. National Parks ↗')+'</span></a></section>'
+ s+='<section class="expedition-hero"><div class="expedition-copy"><p class="eyebrow">SHENG EXPLORATION</p><h1>'+BRAND+'</h1><p class="expedition-tagline">'+t('走進風景，<br>讓好奇心繼續旅行。','Step into the landscape.<br>Let curiosity keep traveling.')+'</p><p>'+t('從親身走過的路出發，分享景點故事、交通銜接與可照著安排的旅程。選一個主題，開始下一段探索。','Starting with journeys we have taken, we share place stories, practical connections and itineraries you can follow. Choose a theme and begin your next exploration.')+'</p><a class="cta primary" href="#themes">'+t('選擇旅行主題 ↓','Choose a travel theme ↓')+'</a></div><a class="expedition-art" href="themes/us-national-parks/#map" aria-label="'+t('探索美國國家公園地圖','Explore the U.S. national parks map')+'">'+photo('us-illustrated-map.webp','美國地景與阿拉斯加、夏威夷的手繪風格旅行插畫','Illustrated U.S. landscapes with Alaska and Hawaii insets')+'<span>'+t('第一個主題 · 美國國家公園 ↗','Featured theme · U.S. National Parks ↗')+'</span></a></section>'
  s+='<section id="themes"><div class="section-title"><p class="eyebrow">CHOOSE YOUR NEXT CHAPTER</p><h2>'+t('依主題，展開旅程','Start your journey by theme')+'</h2><p>'+t('國家公園是探險的一個起點；自然景觀與旅行配套，也各有自己的入口。','National parks are one starting point. Natural landscapes and practical travel guides have their own entrances too.')+'</p></div><div class="theme-grid">'
  for slug,no,title,img,desc,meta in cards:
   s+='<article class="theme-card"><a class="theme-image" href="themes/'+slug+'/">'+photo(img,title+'主題照片',T[title]+' theme image')+'</a><div><p class="eyebrow">THEME '+no+'</p><h3><a href="themes/'+slug+'/">'+title+'</a></h3><p>'+desc+'</p><p class="fine">'+meta+'</p><a class="cta" href="themes/'+slug+'/">'+t('進入主題導覽 →','Explore this theme →')+'</a></div></article>'

@@ -83,7 +83,9 @@ for slug,lat,lon,*rest in PARKS:assert -180<=lon<=180 and 18<=lat<=72
 photos=json.loads((root/'assets/yellowstone/manifest.json').read_text())
 assert len(photos)==16
 for item in photos.values():
- assert (root/item['file']).read_bytes().startswith(b'\xff\xd8')
+ assert (root/item['file']).read_bytes().startswith(b'RIFF')
+ assert item['width']>=1200
+ assert item['original_width']>=item['width']
  assert './'+item['file'] in sw
 route=(root/'routes/yellowstone-grand-teton/index.html').read_text()
 assert '我們實際在同一天' in route and 'Jenny Lake' in route and 'Mormon Row' in route
@@ -93,7 +95,7 @@ print('PASS: 8 geographic markers, 16 real attraction photos, actual compact rou
 for p in pages:
  s=p.read_text()
  assert '公園隨行' not in s and 'National Park Field Guide' not in s
- assert ('Sheng Sheng Expeditions' if 'en' in p.relative_to(root).parts else '生生不息探險隊') in s
+ assert 'Sheng Exploration' in s
 for lang in ['', 'en/']:
  home=(root/(lang+'index.html')).read_text()
  for topic in ['us-national-parks','nature-outdoors','travel-practical']:assert 'themes/'+topic+'/' in home

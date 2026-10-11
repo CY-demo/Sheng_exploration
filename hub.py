@@ -8,6 +8,11 @@ def render_hub(parks,head,foot,esc,ROOT,D):
  def write(path,body):
   p=D/path/'index.html';p.parent.mkdir(parents=True,exist_ok=True);p.write_text(body)
  def image(key,prefix='../../'):
+  if key.startswith('yellowstone/'):
+   m=json.loads((D/'assets/yellowstone/manifest.json').read_text())[key.split('/')[1]]
+   from rockies import t
+   t(m['alt_zh'],m['alt_en'])
+   return f'<img src="{prefix}{m["file"]}" alt="{esc(m["alt_zh"])}" width="{m["width"]}" height="{m["height"]}" loading="lazy">'
   return f'<img src="{prefix}assets/{key}.jpg" alt="{esc(key)} 景觀照片" width="1200" height="750" loading="lazy">'
  def footer(prefix='../../'):
   return '</main><footer><strong>公園隨行 · National Park Field Guide</strong><p>旅行故事、景點介紹與交通安排。阿拉斯加記錄實際旅程；美西頁面為出發前的行程安排。班次與開放資訊以當季公告為準。</p><p><a href="'+prefix+'index.html">國家公園總覽</a> · <a href="'+prefix+'routes/alaska/">阿拉斯加九日</a> · <a href="'+prefix+'routes/southwest/">美西公園與峽谷</a></p><p class="fine">AI-assisted build · 圖片來源保留於各頁及照片資訊檔。</p><p id="offline-status" role="status" aria-live="polite"></p></footer></body></html>'
@@ -18,7 +23,7 @@ def render_hub(parks,head,foot,esc,ROOT,D):
   if u.startswith(('#','http','mailto:','data:')):return m.group(0)
   return f'{a}="../../{u}"'
  alaska=re.sub(r'(href|src)="([^"]+)"',relocate,alaska)
- alaska=alaska.replace('https://cy-demo.github.io/Travel_DeathVelly_GrandCanyon/','../southwest/')
+ alaska=alaska.replace('https://cy-demo.github.io/Sheng_exploration/','../southwest/')
  alaska=alaska.replace('<section id="days">','<section class="chapter" id="our-route"><h2>我們實際搭乘的銜接與調整</h2><p>從 Anchorage 出發，搭火車看峽灣與 Denali，再飛到 Brooks Camp 看熊，最後自駕到 Copper Center。Katmai 第一次起飛後因天氣折返，隔天換業者才成行，成為這趟旅行最難忘的轉折。</p><div class="quick-stops"><a href="../../parks/kenai-fjords/#our-connections">火車與 Seward 船班</a><a href="../../parks/denali/#our-connections">Denali 飯店、飛行與巴士接駁</a><a href="../../parks/katmai/#our-connections">Katmai 原訂航程、折返與補飛</a></div></section><section id="days">')
  alaska=alaska.replace('</main>', '<section><h2>想延伸行程？</h2><div class="quick-stops"><a href="../../parks/katmai/#alternatives">Katmai 過夜與看熊季節</a><a href="../../parks/wrangell-st-elias/#alternatives">McCarthy 與 Root Glacier</a><a href="../../nearby/matanuska/">Matanuska 冰川健行</a></div></section></main>')
  write(Path('routes/alaska'),alaska)

@@ -30,7 +30,9 @@ def render(ROOT,D,head):
  manifest=json.loads((D/'assets/yellowstone/manifest.json').read_text())
  def photo(k):
   m=manifest[k];t(m['alt_zh'],m['alt_en'])
-  return f'<figure><img src="../../{m["file"]}" alt="{e(m["alt_zh"])}" width="1200" height="750" loading="lazy"><figcaption><a href="{e(m["source"])}">{e(m["credit"])}</a></figcaption></figure>'
+  label=t('點開高解析照片','Open the high-resolution photo')
+  return f'<figure class="hires-photo"><a class="photo-full" href="../../{m["file"]}" target="_blank" rel="noopener" aria-label="{label}"><img src="../../{m["file"]}" alt="{e(m["alt_zh"])}" width="{m["width"]}" height="{m["height"]}" loading="lazy" decoding="async"></a><figcaption><a href="{e(m["source"])}">{e(m["credit"])}</a> · <a href="../../{m["file"]}" target="_blank" rel="noopener">{label} ↗</a></figcaption></figure>'
+
  def base(title,k):
   t(title+'｜公園隨行',T.get(title,title)+' | National Park Field Guide')
   return head(title,'../../')+'<nav class="breadcrumbs"><a href="../../index.html">國家公園總覽</a> / <a href="../../routes/yellowstone-grand-teton/">'+TITLE+'</a></nav><section class="park-hero"><div>'+photo(k)+'</div><div class="hero-copy"><p class="eyebrow">WYOMING · MONTANA · IDAHO</p><h1>'+title+'</h1><p>'+INTRO+'</p></div></section>'
