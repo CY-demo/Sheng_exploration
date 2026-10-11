@@ -72,4 +72,5 @@ def render_themes(ROOT,D,head):
   for title in [BRAND,'美國國家公園','自然景觀與戶外','交通與旅行準備']:
    t(title+'｜'+BRAND,(ENBRAND if title==BRAND else T[title])+' | '+ENBRAND)
   t(BRAND,ENBRAND)
+  if p==D/'index.html':text=text.replace('<h1>Sheng Exploration</h1>','<h1>生生不息探險隊</h1>')
   p.write_text(text)
