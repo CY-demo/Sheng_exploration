@@ -1,0 +1,178 @@
+{
+  "fountain-paint-pot": {
+    "file": "assets/yellowstone/fountain-paint-pot.jpg",
+    "source": "https://www.nps.gov/places/000/fountain-paint-pot-trailhead.htm",
+    "image_url": "https://www.nps.gov/common/uploads/cropped_image/primary/1EC95E1F-E17C-73F5-9B81ABE74E929BBE.jpg?width=1600&quality=90&mode=crop",
+    "credit": "NPS / Jacob W. Frank",
+    "alt_zh": "噴泉泥漿鍋冒泡的泥漿與蒸氣",
+    "alt_en": "Steam rises off of the thick, bubbling mud of a mudpot.",
+    "width": 1100,
+    "height": 619,
+    "bytes": 138107
+  },
+  "old-faithful": {
+    "file": "assets/yellowstone/old-faithful.jpg",
+    "source": "https://www.nps.gov/yell/planyourvisit/exploreoldfaithful.htm",
+    "image_url": "https://www.nps.gov/yell/planyourvisit/images/ofinnporch.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / Jim Peaco",
+    "alt_zh": "從老忠實旅館露臺觀賞老忠實間歇泉噴發",
+    "alt_en": "Crowd on an outdoor balcony watching a geyser erupt water and steam into the air.",
+    "width": 650,
+    "height": 366,
+    "bytes": 68001
+  },
+  "grand-prismatic": {
+    "file": "assets/yellowstone/grand-prismatic.jpg",
+    "source": "https://www.nps.gov/yell/planyourvisit/madisonplan.htm",
+    "image_url": "https://www.nps.gov/yell/planyourvisit/images/18835d.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / Jim Peaco",
+    "alt_zh": "大稜鏡溫泉色彩與木棧道",
+    "alt_en": "The rich oranges, yellows, and blues of a steaming hot spring with visitors walking next to it on a long boardwalk.",
+    "width": 650,
+    "height": 432,
+    "bytes": 63352
+  },
+  "west-thumb": {
+    "file": "assets/yellowstone/west-thumb.jpg",
+    "source": "https://www.nps.gov/yell/planyourvisit/westthumbgrantvillage.htm",
+    "image_url": "https://www.nps.gov/yell/planyourvisit/images/688_west_thumb.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / Diane Renkin",
+    "alt_zh": "西拇指地熱盆地黑池與黃石湖",
+    "alt_en": "A young woman looks over a steaming pool and a lake from the railes of a boardwalk",
+    "width": 650,
+    "height": 325,
+    "bytes": 31376
+  },
+  "mud-volcano": {
+    "file": "assets/yellowstone/mud-volcano.jpg",
+    "source": "https://www.nps.gov/places/000/mud-volcano.htm",
+    "image_url": "https://www.nps.gov/common/uploads/cropped_image/primary/F3C49BCE-BCE4-0F2D-9A130B978CC2490D.jpg?width=1600&quality=90&mode=crop",
+    "credit": "NPS / Addy Falgoust",
+    "alt_zh": "泥火山地熱區冒出蒸氣",
+    "alt_en": "Steam rises from a gray mudpot located at the base of a barren slope.",
+    "width": 1100,
+    "height": 619,
+    "bytes": 126903
+  },
+  "hayden": {
+    "file": "assets/yellowstone/hayden.jpg",
+    "source": "https://www.nps.gov/places/000/hayden-valley-at-alum-creek.htm",
+    "image_url": "https://www.nps.gov/common/uploads/place/import/adf64a16-d39f-420e-8d7f-a4dec3f6b0d1_image_350.jpg",
+    "credit": "National Park Service",
+    "alt_zh": "海登谷地草原與美洲野牛",
+    "alt_en": "Bison stand in a wide valley with mountain",
+    "width": 350,
+    "height": 260,
+    "bytes": 16442
+  },
+  "lamar": {
+    "file": "assets/yellowstone/lamar.jpg",
+    "source": "https://www.nps.gov/yell/learn/kidsyouth/places.htm",
+    "image_url": "https://www.nps.gov/yell/learn/kidsyouth/images/LV.jpg?maxwidth=650&autorotate=false",
+    "credit": "National Park Service",
+    "alt_zh": "拉馬河與開闊的拉馬谷地",
+    "alt_en": "The Lamar River slowly meanders through the wide-open valley, with a free trees growing on the sandy bank of the river.",
+    "width": 500,
+    "height": 500,
+    "bytes": 81497
+  },
+  "yellowstone-canyon": {
+    "file": "assets/yellowstone/yellowstone-canyon.jpg",
+    "source": "https://www.nps.gov/yell/planyourvisit/canyonplan.htm",
+    "image_url": "https://www.nps.gov/yell/planyourvisit/images/688_artistspoint.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / Diane Renkin",
+    "alt_zh": "從藝術家觀景點看黃石大峽谷與下瀑布",
+    "alt_en": "A canyon with tan walls and a waterfall",
+    "width": 650,
+    "height": 325,
+    "bytes": 83978
+  },
+  "norris": {
+    "file": "assets/yellowstone/norris.jpg",
+    "source": "https://www.nps.gov/yell/planyourvisit/norrisplan.htm",
+    "image_url": "https://www.nps.gov/yell/planyourvisit/images/688_norris_boardwalk.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / Jim Peaco",
+    "alt_zh": "諾里斯地熱盆地與木棧道",
+    "alt_en": "Visitors walk on a boardwalk that goes through a hydrothermal area",
+    "width": 650,
+    "height": 325,
+    "bytes": 68959
+  },
+  "mammoth": {
+    "file": "assets/yellowstone/mammoth.jpg",
+    "source": "https://www.nps.gov/yell/planyourvisit/explore-mammoth.htm",
+    "image_url": "https://www.nps.gov/yell/planyourvisit/images/688sunrise.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / Neal Herbert",
+    "alt_zh": "猛獁溫泉木棧道、蒸氣與晨光",
+    "alt_en": "A visitor standing on a boardwalk watches the sunrise through mist rising from the Mammoth Hot Springs.",
+    "width": 650,
+    "height": 325,
+    "bytes": 46676
+  },
+  "roosevelt-arch": {
+    "file": "assets/yellowstone/roosevelt-arch.jpg",
+    "source": "https://www.nps.gov/yell/planyourvisit/explore-mammoth.htm",
+    "image_url": "https://www.nps.gov/yell/planyourvisit/images/roosevelt-arch.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / Jacob Frank",
+    "alt_zh": "冬季積雪中的黃石北入口羅斯福拱門",
+    "alt_en": "Roosevelt Arch at Yellowstone’s North Entrance in winter snow",
+    "width": 650,
+    "height": 305,
+    "bytes": 69013
+  },
+  "colter-bay": {
+    "file": "assets/yellowstone/colter-bay.jpg",
+    "source": "https://www.nps.gov/grte/planyourvisit/colterbayplan.htm",
+    "image_url": "https://www.nps.gov/grte/planyourvisit/images/DSC_8660.JPG?maxwidth=650&autorotate=false",
+    "credit": "National Park Service",
+    "alt_zh": "從科爾特灣看湖水與提頓山脈",
+    "alt_en": "Bay with boat and mountains in the background.",
+    "width": 650,
+    "height": 435,
+    "bytes": 39813
+  },
+  "jackson-lake-dam": {
+    "file": "assets/yellowstone/jackson-lake-dam.jpg",
+    "source": "https://www.nps.gov/places/000/jackson-lake-dam-overlook.htm",
+    "image_url": "https://www.nps.gov/common/uploads/place/import/bafc4262-3f73-4aa7-858d-169ca5919ee7_image_350.jpg",
+    "credit": "National Park Service",
+    "alt_zh": "傑克森湖水壩觀景點與提頓山脈",
+    "alt_en": "Visitor standing near Jackson Lake Dam sign with Jackson Lake and northern Teton Range beyond.",
+    "width": 350,
+    "height": 260,
+    "bytes": 13172
+  },
+  "oxbow-bend": {
+    "file": "assets/yellowstone/oxbow-bend.jpg",
+    "source": "https://www.nps.gov/thingstodo/oxbowbend.htm",
+    "image_url": "https://www.nps.gov/common/uploads/cropped_image/primary/C52A9D54-D552-3636-C6144CE833DAC763.jpg?width=1300&quality=90&mode=crop",
+    "credit": "National Park Service",
+    "alt_zh": "Oxbow Bend 河灣與遠方山峰",
+    "alt_en": "A river with mountains in the background.",
+    "width": 1100,
+    "height": 321,
+    "bytes": 58646
+  },
+  "jenny-lake": {
+    "file": "assets/yellowstone/jenny-lake.jpg",
+    "source": "https://www.nps.gov/grte/planyourvisit/jennylakeplan.htm",
+    "image_url": "https://www.nps.gov/grte/planyourvisit/images/jennylake_10.jpg?maxwidth=650&autorotate=false",
+    "credit": "NPS / J. Bonney",
+    "alt_zh": "珍妮湖與提頓山峰",
+    "alt_en": "Mountains rise out of a calm lake.",
+    "width": 650,
+    "height": 433,
+    "bytes": 62452
+  },
+  "mormon-row": {
+    "file": "assets/yellowstone/mormon-row.jpg",
+    "source": "https://www.nps.gov/thingstodo/mormonrow.htm",
+    "image_url": "https://www.nps.gov/common/uploads/cropped_image/primary/C030E6A7-D586-EC40-E8D589C5321380AF.jpg?width=1300&quality=90&mode=crop",
+    "credit": "National Park Service",
+    "alt_zh": "摩門村歷史穀倉與提頓山脈",
+    "alt_en": "A barn with mountains behind.",
+    "width": 1100,
+    "height": 321,
+    "bytes": 91802
+  }
+}

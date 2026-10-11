@@ -8,11 +8,17 @@ CJK=re.compile('[\u4e00-\u9fff]')
 
 def render_bilingual(root,dist):
  catalog=json.loads((root/'english.json').read_text())
+ from rockies import T
+ catalog.update(T)
  pages=sorted(p for p in dist.rglob('*.html') if 'en' not in p.relative_to(dist).parts)
  missing=set()
  def translate(s):
   if not CJK.search(s):return s
-  if s not in catalog:missing.add(s);return s
+  if s not in catalog:
+   core=s.strip()
+   if core in catalog:return s.replace(core,catalog[core])
+   if core.endswith(' ↗') and core[:-2] in catalog:return s.replace(core,catalog[core[:-2]]+' ↗')
+   missing.add(s);return s
   return catalog[s]
  class English(HTMLParser):
   def __init__(self,path):super().__init__(convert_charrefs=True);self.path=path;self.out=[];self.raw=False
@@ -31,6 +37,7 @@ def render_bilingual(root,dist):
   def handle_starttag(self,tag,attrs):
    aa=[]
    for key,val in attrs:
+    key={'viewbox':'viewBox','preserveaspectratio':'preserveAspectRatio'}.get(key,key)
     if tag=='html' and key=='lang':val='en'
     elif key in ('href','src'):val=self.url(val)
     elif val and (key in ('alt','title','aria-label') or tag=='meta' and key=='content'):val=translate(val)

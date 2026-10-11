@@ -55,5 +55,7 @@ if __name__=="__main__":
  render_hub(parks,head,foot,esc,ROOT,D)
 
 if __name__=="__main__":
+ from rockies import render as render_rockies
+ render_rockies(ROOT,D,head)
  from bilingual import render_bilingual
  render_bilingual(ROOT,D)

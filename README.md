@@ -1,6 +1,6 @@
 # National Park Field Guide · 公園隨行
 
-A bilingual Traditional Chinese and English travel website combining Grand Canyon, Death Valley, and four Alaska national parks. Start with a park, follow a complete regional itinerary, or explore nearby destinations.
+A bilingual Traditional Chinese and English travel website combining Grand Canyon, Death Valley, Yellowstone, Grand Teton, and four Alaska national parks. Start with a park, follow a complete regional itinerary, or explore nearby destinations.
 
 ## AI-built project
 
@@ -8,13 +8,15 @@ This website was built with substantial AI assistance using ChatGPT and Codex. T
 
 ## Explore
 
-- `dist/index.html`: six-park overview with regional filters.
-- `dist/en/`: complete English counterparts for all 13 pages, with matching section anchors.
-- `dist/parks/`: Grand Canyon, Death Valley, Kenai Fjords, Denali, Katmai, and Wrangell–St. Elias.
+- `dist/index.html`: eight-park overview with a geographic U.S. map and regional filters.
+- `dist/en/`: complete English counterparts for all 16 pages, with matching section anchors.
+- `dist/parks/`: Grand Canyon, Death Valley, Kenai Fjords, Denali, Katmai, Wrangell–St. Elias, Yellowstone, and Grand Teton.
 - `dist/routes/alaska/`: detailed nine-day itinerary.
 - `dist/routes/southwest/`: Las Vegas, Death Valley, Grand Canyon, and Page route.
 - `dist/nearby/page/`: Antelope Canyon, Horseshoe Bend, and surrounding stops.
 - `dist/travel/airports/`: expandable SJC and LAS lounge locations and eligible cards.
+
+- `dist/routes/yellowstone-grand-teton/`: actual compact four-day route, planning time bands, and an optional full-day Teton extension.
 
 ## Build and validation
 
@@ -28,4 +30,4 @@ Use the offline download button while online to save both language editions and 
 
 ## Privacy
 
-No personal dates, hotel bookings, reservation IDs, traveler names, analytics, or login logic are included. Alaska follows the recorded journey; times not recorded are described by part of the day. Alternative trips and the upcoming Southwest itinerary remain clearly marked as plans. The repository is public; local private notes are not included.
+No personal dates, hotel bookings, reservation IDs, traveler names, analytics, or login logic are included. Alaska and the Yellowstone–Grand Teton routing follow the recorded journeys; times not recorded are described by part of the day. Alternative trips and the upcoming Southwest itinerary remain clearly marked as plans. The repository is public; local private notes are not included.
