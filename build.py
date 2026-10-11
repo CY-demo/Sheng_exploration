@@ -57,5 +57,7 @@ if __name__=="__main__":
 if __name__=="__main__":
  from rockies import render as render_rockies
  render_rockies(ROOT,D,head)
+ from themes import render_themes
+ render_themes(ROOT,D,head)
  from bilingual import render_bilingual
  render_bilingual(ROOT,D)

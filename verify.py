@@ -8,7 +8,7 @@ class Doc(HTMLParser):
  def handle_starttag(self,tag,attrs):self.elements.append((tag,dict(attrs)))
  def ids(self):return [a['id'] for t,a in self.elements if 'id' in a]
 root=Path(__file__).parent/'dist'
-pages=list(root.rglob('*.html'));assert len(pages)==32
+pages=list(root.rglob('*.html'));assert len(pages)==38
 for p in pages:
  s=p.read_text();doc=Doc(s)
  assert any(t=='meta' and a.get('name')=='viewport' for t,a in doc.elements)
@@ -31,7 +31,7 @@ for p in pages:
 
 for p in (root/'assets').glob('*.jpg'):assert p.read_bytes().startswith(b'\xff\xd8')
 assert len(json.loads((root/'parks.json').read_text()))==8
-print('PASS: 32 bilingual pages, local assets and anchors, 8 park entries, mobile viewport, and private itinerary markers.')
+print('PASS: 38 bilingual pages, local assets and anchors, 8 park entries, mobile viewport, and private itinerary markers.')
 from itinerary import DAYS
 assert len(DAYS)==9
 kenai=(root/'parks/kenai-fjords/index.html').read_text()
@@ -51,7 +51,7 @@ for entry in manifest.values():assert './assets/spots/'+entry['file'] in sw
 print('PASS: nine complete day routes, selected noon sailing, Denali advance-booking instructions, spot photos, offline assets.')
 # Every public page has a complete, navigable English counterpart.
 zhpages=[p for p in pages if 'en' not in p.relative_to(root).parts]
-assert len(zhpages)==16
+assert len(zhpages)==19
 for p in zhpages:
  ep=root/'en'/p.relative_to(root)
  en=ep.read_text();zh=p.read_text()
@@ -70,12 +70,12 @@ for p in pages:
  assert not any(x in p.read_text() for x in ['日期已移除','移除私人出發日期','下方九日表是較寬鬆','補上了','原筆記'])
 assert 'id="day-7"' in (root/'parks/katmai/index.html').read_text()
 assert 'Copper Center' in (root/'en/parks/katmai/index.html').read_text()
-print('PASS: all 16 English counterparts, full translation coverage, matching anchors, language-contained navigation and bilingual offline bundle.')
+print('PASS: all 19 English counterparts, full translation coverage, matching anchors, language-contained navigation and bilingual offline bundle.')
 
 # New guides, geographic links and offline photographs.
 from park_map import PARKS
 assert len(PARKS)==8
-home=Doc((root/'index.html').read_text())
+home=Doc((root/'themes/us-national-parks/index.html').read_text())
 markers=[a for tag,a in home.elements if tag=='a' and a.get('class')=='map-park']
 assert len(markers)==8
 assert len({a['href'] for a in markers})==8
@@ -89,3 +89,14 @@ route=(root/'routes/yellowstone-grand-teton/index.html').read_text()
 assert '我們實際在同一天' in route and 'Jenny Lake' in route and 'Mormon Row' in route
 assert '第五天' in route
 print('PASS: 8 geographic markers, 16 real attraction photos, actual compact route and separate extended option.')
+
+for p in pages:
+ s=p.read_text()
+ assert '公園隨行' not in s and 'National Park Field Guide' not in s
+ assert ('Sheng Sheng Expeditions' if 'en' in p.relative_to(root).parts else '生生不息探險隊') in s
+for lang in ['', 'en/']:
+ home=(root/(lang+'index.html')).read_text()
+ for topic in ['us-national-parks','nature-outdoors','travel-practical']:assert 'themes/'+topic+'/' in home
+assert './assets/us-illustrated-map.webp' in sw
+assert './themes/us-national-parks/' in sw
+print('PASS: expedition branding, three theme entrances, bilingual theme pages and offline illustrated map.')

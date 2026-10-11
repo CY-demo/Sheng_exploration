@@ -10,6 +10,8 @@ def render_bilingual(root,dist):
  catalog=json.loads((root/'english.json').read_text())
  from rockies import T
  catalog.update(T)
+ from themes import brand
+ catalog={brand(k):brand(v) for k,v in catalog.items()}
  pages=sorted(p for p in dist.rglob('*.html') if 'en' not in p.relative_to(dist).parts)
  missing=set()
  def translate(s):

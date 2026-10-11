@@ -1,0 +1,8 @@
+{
+  "asset": "us-illustrated-map.webp",
+  "type": "AI-generated editorial travel illustration",
+  "tool": "built-in image_gen",
+  "model": "not exposed by tool",
+  "prompt": "Illustrated USA travel map, watercolor and fine ink on warm ivory paper; muted forest green, sage, ochre and terracotta. Recognizable contiguous United States with Alaska and Hawaii insets. Mountains, canyons, geyser and forests. Airy field-journal composition, no text, no markers, no labels, no routes. The website adds accessible clickable park labels separately. Artistic travel overview, not a precise navigation map. Landscape 1536x1024.",
+  "usage": "Website theme cover and illustrated park locator; approximate labels added by code."
+}

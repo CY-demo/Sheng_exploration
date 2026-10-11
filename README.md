@@ -1,6 +1,6 @@
-# National Park Field Guide · 公園隨行
+# 生生不息探險隊 · Sheng Sheng Expeditions
 
-A bilingual Traditional Chinese and English travel website combining Grand Canyon, Death Valley, Yellowstone, Grand Teton, and four Alaska national parks. Start with a park, follow a complete regional itinerary, or explore nearby destinations.
+A bilingual Traditional Chinese and English travel journal organized into themes. Its U.S. National Parks theme combines Grand Canyon, Death Valley, Yellowstone, Grand Teton, and four Alaska national parks. Start with a park, follow a complete regional itinerary, or explore nearby destinations.
 
 ## AI-built project
 
@@ -8,8 +8,9 @@ This website was built with substantial AI assistance using ChatGPT and Codex. T
 
 ## Explore
 
-- `dist/index.html`: eight-park overview with a geographic U.S. map and regional filters.
-- `dist/en/`: complete English counterparts for all 16 pages, with matching section anchors.
+- `dist/index.html`: theme homepage for U.S. National Parks, Nature & Outdoors, and Getting There & Travel Essentials.
+- `dist/themes/us-national-parks/`: eight-park overview with an AI-generated illustrated map, approximate clickable park markers, and regional filters.
+- `dist/en/`: complete English counterparts for all 19 pages, with matching section anchors.
 - `dist/parks/`: Grand Canyon, Death Valley, Kenai Fjords, Denali, Katmai, Wrangell–St. Elias, Yellowstone, and Grand Teton.
 - `dist/routes/alaska/`: detailed nine-day itinerary.
 - `dist/routes/southwest/`: Las Vegas, Death Valley, Grand Canyon, and Page route.
@@ -31,3 +32,7 @@ Use the offline download button while online to save both language editions and 
 ## Privacy
 
 No personal dates, hotel bookings, reservation IDs, traveler names, analytics, or login logic are included. Alaska and the Yellowstone–Grand Teton routing follow the recorded journeys; times not recorded are described by part of the day. Alternative trips and the upcoming Southwest itinerary remain clearly marked as plans. The repository is public; local private notes are not included.
+
+## Illustrated map
+
+`dist/assets/us-illustrated-map.webp` is an AI-generated editorial illustration made with the built-in image generation tool. The tool did not expose a model selector, so no specific model version is claimed. Accessible park links and approximate markers are implemented in HTML/SVG. The illustration is not a navigation map. The generation prompt is recorded in `dist/assets/us-illustrated-map.json`.

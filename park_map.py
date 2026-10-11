@@ -9,18 +9,14 @@ def projection(lon,lat,region):
  return 55+(lon+125)*14,70+(50-lat)*13
 
 def render_map(root):
- polys=json.loads((root/'us-outline.geojson').read_text())['features'][0]['geometry']['coordinates']
- s='<section id="map"><p class="eyebrow">EXPLORE THE UNITED STATES</p><h2>'+t('從地圖選公園','Choose a park on the map')+'</h2><p>'+t('標出本站已有導覽的 8 座公園。點擊標記進入景點介紹，或用下方地區分類選擇。','Explore the eight parks with guides on this site. Select a map marker for a park guide, or browse the regional categories below.')+'</p><div class="map-scroll" tabindex="0" role="region" aria-label="'+t('美國公園地圖，可橫向捲動','United States park map, horizontally scrollable')+'"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 680" role="img" aria-labelledby="map-title map-desc"><title id="map-title">'+t('美國國家公園位置圖','United States national park locator')+'</title><desc id="map-desc">'+t('美西四座、阿拉斯加四座；下方卡片提供相同公園連結。','Four parks in the West and four in Alaska. The cards below provide the same park links.')+'</desc>'
- for poly in polys:
-  ring=poly[0];lon,lat=ring[0];region='alaska' if lat>50 else 'hawaii' if lon<-140 else 'west'
-  if region=='alaska' and lon>0:continue
-  pts=[projection(x,y,region) for x,y in ring if not(region=='alaska' and x>0)]
-  if pts:s+='<path class="land" d="M'+' L'.join(f'{x:.1f},{y:.1f}' for x,y in pts)+' Z"></path>'
- for x,y,zh,en in [(195,115,'美西','West'),(520,190,'中西部','Midwest'),(780,220,'美東','East'),(580,345,'美南','South'),(55,435,'阿拉斯加','Alaska'),(530,510,'夏威夷','Hawaii')]:s+=f'<text class="map-region" x="{x}" y="{y}">{t(zh,en)}</text>'
- for slug,lat,lon,reg,zh,en,lx,ly in PARKS:
-  x,y=projection(lon,lat,reg);name=t(zh,en)
-  s+=f'<a href="parks/{slug}/" class="map-park" data-region="{reg}" aria-label="{name}"><title>{name}</title><path class="leader" d="M{x:.1f},{y:.1f} L{lx},{ly-6}"></path><circle cx="{x:.1f}" cy="{y:.1f}" r="7"></circle><text x="{lx}" y="{ly}">{name}</text></a>'
- s+='</svg></div><p class="fine">'+t('位置為公園概略定位，不是入口或行車導航。阿拉斯加與夏威夷採獨立比例；地區分類用於本站瀏覽。','Markers locate parks approximately, not entrances or driving routes. Alaska and Hawaii use separate scales. Regions are browsing categories for this site.')+' <a href="https://github.com/johan/world.geo.json/blob/master/countries/USA.geo.json">Map outline · world.geo.json</a></p></section>'
+ # The image is intentionally illustrative; exact geographic outline is separately available.
+ points=[('yellowstone',290,142,375,116),('grand-teton',286,175,382,198),('death-valley',124,266,38,232),('grand-canyon',228,302,304,337),('denali',176,460,30,419),('kenai-fjords',206,510,282,536),('katmai',143,529,25,570),('wrangell-st-elias',228,480,301,478)]
+ byslug={x[0]:x for x in PARKS}
+ s='<section id="map"><p class="eyebrow">AN ILLUSTRATED PARK ATLAS</p><h2>'+t('沿著地圖，走進荒野','Follow the map into the wild')+'</h2><p>'+t('從峽谷到冰川，點選 8 座公園的標記開始閱讀。插畫呈現旅行氛圍，標記為概略位置；下方卡片也提供相同連結。','From canyons to glaciers, select one of eight park markers to begin. This illustrated atlas conveys the spirit of travel; markers are approximate. The cards below provide the same links.')+'</p><div class="map-scroll illustrated" tabindex="0" role="region" aria-label="'+t('美國公園插畫地圖，可橫向捲動','Illustrated United States park map, horizontally scrollable')+'"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 627" role="group" aria-labelledby="map-title map-desc"><title id="map-title">'+t('美國國家公園插畫導覽','Illustrated guide to United States national parks')+'</title><desc id="map-desc">'+t('美西四座、阿拉斯加四座；下方卡片提供相同公園連結。','Four parks in the West and four in Alaska. The cards below provide the same park links.')+'</desc><image href="assets/us-illustrated-map.webp" x="0" y="0" width="940" height="627"></image>'
+ for slug,x,y,lx,ly in points:
+  _,lat,lon,reg,zh,en,_,_=byslug[slug];name=t(zh,en)
+  s+=f'<a href="parks/{slug}/" class="map-park" data-region="{reg}" aria-label="{name}"><title>{name}</title><path class="leader" d="M{x},{y} L{lx},{ly-6}"></path><circle cx="{x}" cy="{y}" r="7"></circle><text x="{lx}" y="{ly}">{name}</text></a>'
+ s+='</svg></div><p class="fine">'+t('AI 生成旅行插畫，非實景照片或導航地圖。阿拉斯加與夏威夷為不同比例的插圖；實際入口、道路與距離請查各公園官方地圖。','AI-generated travel illustration, not a photograph or navigation map. Alaska and Hawaii are inset at different scales. Consult official park maps for entrances, roads and distances.')+'</p></section>'
  return s
 
 def filters():
