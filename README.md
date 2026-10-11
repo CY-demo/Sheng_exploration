@@ -38,3 +38,5 @@ No personal dates, hotel bookings, reservation IDs, traveler names, analytics, o
 `dist/assets/us-illustrated-map.webp` is an AI-generated editorial illustration made with the built-in image generation tool. The tool did not expose a model selector, so no specific model version is claimed. Accessible park links and approximate markers are implemented in HTML/SVG. The illustration is not a navigation map. The generation prompt is recorded in `dist/assets/us-illustrated-map.json`.
 
 Yellowstone and Grand Teton photographs use genuine high-resolution source images, optimized as WebP without upscaling. Park guides link to the full display image and retain source credits in `dist/assets/yellowstone/manifest.json`.
+
+The six additional park guides include high-resolution landmark galleries in `dist/assets/park-scenes/`, with source attribution, bilingual captions, full-image links and explicit labels for optional extensions.

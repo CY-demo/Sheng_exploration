@@ -102,3 +102,12 @@ for lang in ['', 'en/']:
 assert './assets/us-illustrated-map.webp' in sw
 assert './themes/us-national-parks/' in sw
 print('PASS: expedition branding, three theme entrances, bilingual theme pages and offline illustrated map.')
+
+scenes=json.loads((root/'assets/park-scenes/manifest.json').read_text())
+assert len({m['park'] for m in scenes})==6
+for m in scenes:
+ assert m['width']>=1600 and m['original_width']>=m['width']
+ assert (root/m['file']).exists() and './'+m['file'] in sw
+for park in {m['park'] for m in scenes}:
+ assert 'id="landscape-photos"' in (root/'parks'/park/'index.html').read_text()
+print('PASS: six additional parks have attributed high-resolution landscape galleries.')
