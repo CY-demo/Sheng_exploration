@@ -63,3 +63,7 @@ if __name__=="__main__":
  render_themes(ROOT,D,head)
  from bilingual import render_bilingual
  render_bilingual(ROOT,D)
+
+if __name__=="__main__":
+ from offline import render as render_offline
+ render_offline(D)
