@@ -60,6 +60,7 @@ def render_bilingual(root,dist):
   alternates=f'<link rel="alternate" hreflang="zh-Hant" href="{zh}"><link rel="alternate" hreflang="en" href="{en}">'
   return s.replace('</head>',alternates+'</head>')
  for p in pages:
+  if p.relative_to(dist).as_posix() == "routes/fairbanks-winter/index.html": continue
   rel=p.relative_to(dist);s=p.read_text();parser=English(rel);parser.feed(s);en=''.join(parser.out)
   enpath=dist/'en'/rel;enpath.parent.mkdir(parents=True,exist_ok=True)
   entozh=posixpath.relpath(str(rel),'en/'+str(rel.parent))

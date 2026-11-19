@@ -8,7 +8,7 @@ class Doc(HTMLParser):
  def handle_starttag(self,tag,attrs):self.elements.append((tag,dict(attrs)))
  def ids(self):return [a['id'] for t,a in self.elements if 'id' in a]
 root=Path(__file__).parent/'dist'
-pages=list(root.rglob('*.html'));assert len(pages)==38
+pages=list(root.rglob('*.html'));assert len(pages)==40
 for p in pages:
  s=p.read_text();doc=Doc(s)
  assert any(t=='meta' and a.get('name')=='viewport' for t,a in doc.elements)
@@ -31,7 +31,7 @@ for p in pages:
 
 for p in (root/'assets').glob('*.jpg'):assert p.read_bytes().startswith(b'\xff\xd8')
 assert len(json.loads((root/'parks.json').read_text()))==8
-print('PASS: 38 bilingual pages, local assets and anchors, 8 park entries, mobile viewport, and private itinerary markers.')
+print('PASS: 40 bilingual pages, local assets and anchors, 8 park entries, mobile viewport, and private itinerary markers.')
 from itinerary import DAYS
 assert len(DAYS)==9
 kenai=(root/'parks/kenai-fjords/index.html').read_text()
@@ -51,7 +51,7 @@ for entry in manifest.values():assert './assets/spots/'+entry['file'] in sw
 print('PASS: nine complete day routes, selected noon sailing, Denali advance-booking instructions, spot photos, offline assets.')
 # Every public page has a complete, navigable English counterpart.
 zhpages=[p for p in pages if 'en' not in p.relative_to(root).parts]
-assert len(zhpages)==19
+assert len(zhpages)==20
 for p in zhpages:
  ep=root/'en'/p.relative_to(root)
  en=ep.read_text();zh=p.read_text()
@@ -70,7 +70,7 @@ for p in pages:
  assert not any(x in p.read_text() for x in ['日期已移除','移除私人出發日期','下方九日表是較寬鬆','補上了','原筆記'])
 assert 'id="day-7"' in (root/'parks/katmai/index.html').read_text()
 assert 'Copper Center' in (root/'en/parks/katmai/index.html').read_text()
-print('PASS: all 19 English counterparts, full translation coverage, matching anchors, language-contained navigation and bilingual offline bundle.')
+print('PASS: all 20 English counterparts, full translation coverage, matching anchors, language-contained navigation and bilingual offline bundle.')
 
 # New guides, geographic links and offline photographs.
 from park_map import PARKS
@@ -111,3 +111,12 @@ for m in scenes:
 for park in {m['park'] for m in scenes}:
  assert 'id="landscape-photos"' in (root/'parks'/park/'index.html').read_text()
 print('PASS: six additional parks have attributed high-resolution landscape galleries.')
+
+for lang in ('','en/'):
+ f=root/(lang+'routes/fairbanks-winter/index.html'); s=f.read_text()
+ for key in ('day-1','day-6','sled','chena','heritage','pack'):
+  assert key in Doc(s).ids()
+ assert 'routes/fairbanks-winter/' in (root/(lang+'index.html')).read_text()
+ assert 'routes/fairbanks-winter/' in (root/(lang+'themes/nature-outdoors/index.html')).read_text()
+ assert './'+lang+'routes/fairbanks-winter/index.html' in sw
+ assert not __import__('re').search(r'AS\d{3,4}|20\d{2}/\d{1,2}/\d{1,2}|11/2[2-7]',s)

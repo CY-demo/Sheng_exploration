@@ -10,8 +10,9 @@ This website was built with substantial AI assistance using ChatGPT and Codex. T
 
 - `dist/index.html`: theme homepage for U.S. National Parks, Nature & Outdoors, and Getting There & Travel Essentials.
 - `dist/themes/us-national-parks/`: eight-park overview with an AI-generated illustrated map, approximate clickable park markers, and regional filters.
-- `dist/en/`: complete English counterparts for all 19 pages, with matching section anchors.
+- `dist/en/`: complete English counterparts for all 20 pages, with matching section anchors.
 - `dist/parks/`: Grand Canyon, Death Valley, Kenai Fjords, Denali, Katmai, Wrangell–St. Elias, Yellowstone, and Grand Teton.
+- `dist/routes/fairbanks-winter/`: six-day winter route, aurora lodges, and clothing checklists.
 - `dist/routes/alaska/`: detailed nine-day itinerary.
 - `dist/routes/southwest/`: Las Vegas, Death Valley, Grand Canyon, and Page route.
 - `dist/nearby/page/`: Antelope Canyon, Horseshoe Bend, and surrounding stops.

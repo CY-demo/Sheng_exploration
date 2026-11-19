@@ -65,5 +65,7 @@ if __name__=="__main__":
  render_bilingual(ROOT,D)
 
 if __name__=="__main__":
+ from fairbanks import render as render_fairbanks
+ render_fairbanks(D)
  from offline import render as render_offline
  render_offline(D)
