@@ -128,4 +128,6 @@ for lang in ('','en/'):
   part=re.search(fr'<article class="fb-day" id="day-{day}">(.+?)</article>',s,re.S).group(1)
   assert tuple(a['id'] for tag,a in Doc(part).elements if tag=='details')==ids
  assert all('open' not in a for tag,a in Doc(s).elements if tag=='details')
+ assert {'font','offline','offline-status'}<=set(Doc(s).ids())
+ assert 'data-pack="all"' in s
 print('PASS: each tour is in its day and all details start collapsed.')

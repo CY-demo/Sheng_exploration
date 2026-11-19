@@ -3,9 +3,9 @@ const scriptURL=new URL(document.currentScript.src),base=new URL('./',scriptURL)
 const english=document.documentElement.lang==='en';
 const t=(zh,en)=>english?en:zh;
 const font=document.getElementById('font');
-function setLarge(on){document.body.classList.toggle('large',on);font.setAttribute('aria-pressed',String(on));font.textContent=on?t('標準字','Standard text'):t('大字','Larger text');}
+function setLarge(on){document.body.classList.toggle('large',on);font?.setAttribute('aria-pressed',String(on));if(font)font.textContent=on?t('標準字','Standard text'):t('大字','Larger text');}
 try{setLarge(localStorage.getItem('alaska-large')==='true')}catch{}
-font.addEventListener('click',()=>{const on=!document.body.classList.contains('large');setLarge(on);try{localStorage.setItem('alaska-large',on)}catch{}});
+font?.addEventListener('click',()=>{const on=!document.body.classList.contains('large');setLarge(on);try{localStorage.setItem('alaska-large',on)}catch{}});
 // Preserve the current section when switching language, with usable HTML links as fallback.
 function languageLinks(){document.querySelectorAll('.language-switch a').forEach(a=>{const u=new URL(a.href);u.hash=location.hash;a.href=u.href;});}
 languageLinks();addEventListener('hashchange',languageLinks);
@@ -24,9 +24,11 @@ async function worker(){
  try{return await ready}catch(err){ready=null;throw err}
 }
 const button=document.getElementById('offline'),status=document.getElementById('offline-status');
+if(button?.closest('header')&&status){
 const box=document.createElement('section');box.className='offline-panel';box.style.cssText='margin:1rem;padding:1rem;border:1px solid #b7c6bf;border-radius:12px';
-box.innerHTML='<strong>'+t('離線閱讀','Offline reading')+'</strong><p>'+t('先連線下載，完成後使用同一個 Safari／Chrome 開啟此網址。大峽谷・死亡谷包包含佩吉、行程、中文／英文與照片。','Download while online, then reopen this URL in the same Safari/Chrome browser. The Southwest pack includes Grand Canyon, Death Valley, Page, both languages and photos.')+'</p><label>'+t('下載範圍：','Download: ')+'<select id="offline-pack"><option value="southwest">'+t('大峽谷・死亡谷・佩吉','Grand Canyon · Death Valley · Page')+'</option><option value="all">'+t('整個網站','Entire website')+'</option></select></label><p id="offline-progress" role="status" aria-live="polite"></p>';
+box.innerHTML='<strong>'+t('離線閱讀','Offline reading')+'</strong><p>'+t('先連線下載，完成後使用同一個 Safari／Chrome 開啟此網址。大峽谷・死亡谷包包含佩吉、行程、中文／英文與照片。費爾班克斯請選「整個網站」。','Download while online, then reopen this URL in the same Safari/Chrome browser. The Southwest pack includes Grand Canyon, Death Valley, Page, both languages and photos. Choose Entire website for Fairbanks.')+'</p><label>'+t('下載範圍：','Download: ')+'<select id="offline-pack"><option value="southwest">'+t('大峽谷・死亡谷・佩吉','Grand Canyon · Death Valley · Page')+'</option><option value="all">'+t('整個網站','Entire website')+'</option></select></label><p id="offline-progress" role="status" aria-live="polite"></p>';
 button.closest('header').after(box);const progress=box.querySelector('#offline-progress'),select=box.querySelector('select');
+if(button.dataset.pack==='all')select.value='all';
 function say(message){progress.textContent=message;status.textContent=message;}
 function request(reg,type,onprogress){return new Promise((resolve,reject)=>{
  const channel=new MessageChannel();let timer;const finish=(err,result)=>{clearTimeout(timer);channel.port1.close();channel.port2.close();if(err){ready=null;reject(err)}else resolve(result)};
@@ -47,3 +49,4 @@ button.addEventListener('click',async()=>{
  }catch(err){ready=null;button.textContent=t('繼續下載','Resume download');say(t('下載未完成：','Download incomplete: ')+(err.message||err.name));}
  finally{downloading=false;button.disabled=false;select.disabled=false}
 });
+}

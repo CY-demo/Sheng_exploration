@@ -128,9 +128,11 @@ def render(dist):
   brand=f'<a class="brand" href="{own}index.html"><span class="seal" aria-hidden="true">∞</span><span>Sheng Exploration<small>SHENG EXPLORATION</small></span></a>'
   links=f'<a lang="zh-Hant" hreflang="zh-Hant" href="{alt if is_en else "./"}">中文</a><a lang="en" hreflang="en" href={"./" if is_en else alt}>English</a>'
   home=f'<a href="{own}index.html">{c["home"]}</a>'
+  actions=('<div class="actions"><button id="font" aria-pressed="false">'+('Larger text' if is_en else '大字')+'</button><button id="offline" data-pack="all">'+('Download offline' if is_en else '離線下載')+'</button></div>')
+
   (route/'index.html').write_text(f'''<!doctype html>
 <html lang="{c['lang']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123439"><title>{escape(c['title'])}｜Sheng Exploration</title><meta name="description" content="{escape(c['intro'])}"><link rel="stylesheet" href="{root}style.css"><link rel="stylesheet" href="{root}fairbanks.css"><script src="{root}app.js" defer></script></head>
-<body><a class="skip" href="#main">{c['skip']}</a><header>{brand}<nav class="language-switch" aria-label="Language">{links}</nav></header><main id="main" class="fb"><nav class="breadcrumbs">{home} / <a href="{own}themes/nature-outdoors/">{c['theme']}</a></nav>
+<body><a class="skip" href="#main">{c['skip']}</a><header>{brand}<nav class="language-switch" aria-label="Language">{links}</nav>{actions}</header><main id="main" class="fb"><nav class="breadcrumbs">{home} / <a href="{own}themes/nature-outdoors/">{c['theme']}</a></nav>
 <section class="fb-hero"><p class="eyebrow">ALASKA IN WINTER</p><h1>{escape(c['title'])}</h1><p>{escape(c['intro'])}</p></section>
 <nav class="tabs">{nav}</nav><p class="fb-note">{escape(c['notice'])}</p>
 <section id="plan"><h2>{c['plan']}</h2><ol class="fb-jump">{dates}</ol><div class="fb-grid" id="tours">{days}</div></section>
