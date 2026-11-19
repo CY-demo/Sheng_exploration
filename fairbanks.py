@@ -90,8 +90,9 @@ def render(dist):
   gear_label='What to wear' if is_en else '推薦穿著'
   def clothing(i):
    return f'<p class="fb-gear"><strong>{gear_label}</strong> {escape(c["wear"][i][1])}</p>'
-  def slot(slug,time,title,body='',tour=None,wear=None):
-   content=f'<p>{escape(body)}</p>' if body else ''
+  def slot(slug,time,title,body='',tour=None,wear=None,intro=''):
+   content=f'<p>{escape(intro)}</p>' if intro else ''
+   if body:content+=f'<p>{escape(body)}</p>'
    if tour:
     _,_,sub,stops=detail[tour]
     content+=f'<p class="fb-provider">{escape(sub)}</p><ol>'+''.join(f'<li><strong>{escape(t)}</strong><p>{escape(p)}</p></li>' for t,p in stops)+'</ol>'
@@ -105,7 +106,7 @@ def render(dist):
     [slot('supplies','Daytime','Rest and buy supplies','Leave the morning open after the late return. Buy food or water before the afternoon tour.'),
      slot('chena','4:00 p.m.–2:00 a.m. next day','Chena Hot Springs and aurora',tour='chena',wear=1)],
     [slot('heritage','1:00–6:30 p.m.','Fairbanks Heritage Tour',tour='heritage',wear=2),
-     slot('glass','9:30 p.m.–2:30 a.m. next day','Cleary Summit aurora glass house','Have dinner in town first. This five-hour tour includes transport on the pickup option. A typical pickup window is 9:00–9:40 p.m.; check the operator text, and allow for a variable return.',wear=2)],
+     slot('glass','9:30 p.m.–2:30 a.m. next day','Cleary Summit aurora glass house','Have dinner in town first. This five-hour tour includes transport on the pickup option. A typical pickup window is 9:00–9:40 p.m.; check the operator text, and allow for a variable return.',wear=2,intro='A heated cabin high on Cleary Summit, away from city lights. Floor-to-ceiling windows offer a 270° panorama. Wait inside with hot cocoa, coffee and snacks, then step outdoors for photos if the aurora appears. The tour offers aurora portraits when conditions allow; sightings are not guaranteed.')],
     [slot('rest','Daytime and evening','Holiday lunch and rest',c['days'][4][1])],
     [slot('departure','Before departure','Hotel checkout and airport shuttle',c['days'][5][1])],
    ]
@@ -117,7 +118,7 @@ def render(dist):
     [slot('supplies','白天','補眠與採買','前一晚較晚回來，上午留空。下午出團前可補買食物和飲水。'),
      slot('chena','16:00–翌日約 02:00','珍娜溫泉＋追極光',tour='chena',wear=1)],
     [slot('heritage','13:00–約 18:30','費爾班克斯市區巡禮',tour='heritage',wear=2),
-     slot('glass','21:30–翌日約 02:30','Cleary Summit 玻璃屋追光','先回市區吃晚餐。含交通方案約五小時；接車參考時段 21:00–21:40，實際看簡訊，回程可能浮動。',wear=2)],
+     slot('glass','21:30–翌日約 02:30','Cleary Summit 玻璃屋追光','先回市區吃晚餐。含交通方案約五小時；接車參考時段 21:00–21:40，實際看簡訊，回程可能浮動。',wear=2,intro='玻璃屋在 Cleary Summit 山上，遠離市區燈光。它是有暖氣的木屋，不是玻璃球；大片落地窗可看約 270° 的天空。可以在裡面喝熱可可、咖啡、吃點心等極光，出現時再到戶外拍照。團方在看得到極光時提供人像攝影；不保證當晚看得到。')],
     [slot('rest','白天與晚上','感恩節午餐與休息',c['days'][4][1])],
     [slot('departure','起飛前','退房與機場接駁',c['days'][5][1])],
    ]
