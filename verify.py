@@ -120,3 +120,12 @@ for lang in ('','en/'):
  assert 'routes/fairbanks-winter/' in (root/(lang+'themes/nature-outdoors/index.html')).read_text()
  assert './'+lang+'routes/fairbanks-winter/index.html' in sw
  assert not __import__('re').search(r'AS\d{3,4}|20\d{2}/\d{1,2}/\d{1,2}|11/2[2-7]',s)
+
+import re
+for lang in ('','en/'):
+ s=(root/(lang+'routes/fairbanks-winter/index.html')).read_text()
+ for day,ids in {1:('arrival',),2:('sled','lodge'),3:('supplies','chena'),4:('heritage','glass'),5:('rest',),6:('departure',)}.items():
+  part=re.search(fr'<article class="fb-day" id="day-{day}">(.+?)</article>',s,re.S).group(1)
+  assert tuple(a['id'] for tag,a in Doc(part).elements if tag=='details')==ids
+ assert all('open' not in a for tag,a in Doc(s).elements if tag=='details')
+print('PASS: each tour is in its day and all details start collapsed.')

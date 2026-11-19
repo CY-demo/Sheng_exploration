@@ -84,12 +84,44 @@ def render(dist):
   root='../../../' if is_en else '../../'
   alt=root + ('routes/fairbanks-winter/' if is_en else 'en/routes/fairbanks-winter/')
   own=root+('en/' if is_en else '')
-  nav=''.join(f'<a href="#{key}">{c[key]}</a>' for key in ('plan','tours','pack','refs'))
+  nav=''.join(f'<a href="#{key}">{c[key]}</a>' for key in ('plan','pack','refs'))
   dates=''.join(f'<li><a href="#day-{i}">Day {i}</a></li>' for i in range(1,7))
-  days=''.join(f'<article class="fb-day" id="day-{i}"><p class="eyebrow">DAY {i:02}</p><h3>{escape(title)}</h3><p>{escape(body)}</p>{f"""<a href="#{("sled","chena","heritage")[i-2]}">{("Tour details" if is_en else "看詳細行程")}</a>""" if i in (2,3,4) else ""}</article>' for i,(title,body) in enumerate(c['days'],1))
-  detail=''
-  for slug,title,sub,stops in c['details']:
-   detail+=f'<details class="fb-detail" id="{slug}" open><summary><strong>{escape(title)}</strong><small>{escape(sub)}</small></summary><ol>'+''.join(f'<li><strong>{escape(t)}</strong><p>{escape(p)}</p></li>' for t,p in stops)+'</ol></details>'
+  detail={item[0]:item for item in c['details']}
+  gear_label='What to wear' if is_en else '推薦穿著'
+  def clothing(i):
+   return f'<p class="fb-gear"><strong>{gear_label}</strong> {escape(c["wear"][i][1])}</p>'
+  def slot(slug,time,title,body='',tour=None,wear=None):
+   content=f'<p>{escape(body)}</p>' if body else ''
+   if tour:
+    _,_,sub,stops=detail[tour]
+    content+=f'<p class="fb-provider">{escape(sub)}</p><ol>'+''.join(f'<li><strong>{escape(t)}</strong><p>{escape(p)}</p></li>' for t,p in stops)+'</ol>'
+   if wear is not None:content+=clothing(wear)
+   return f'<details class="fb-detail" id="{slug}"><summary><span class="fb-time">{escape(time)}</span><strong>{escape(title)}</strong></summary><div class="fb-detail-body">{content}</div></details>'
+  if is_en:
+   slots=[
+    [slot('arrival','Arrival','Airport and hotel shuttle',c['days'][0][1])],
+    [slot('sled','9:30 a.m.–5:45 p.m.','Dog sledding and reindeer',tour='sled',wear=0),
+     slot('lodge','Evening–2:30 a.m. next day','Aurora Borealis Lodge','Have dinner first. A typical hotel pickup window is 9:30–10:05 p.m.; confirm yours with the operator. Return around 2:30 a.m. the next morning.',wear=2)],
+    [slot('supplies','Daytime','Rest and buy supplies','Leave the morning open after the late return. Buy food or water before the afternoon tour.'),
+     slot('chena','4:00 p.m.–2:00 a.m. next day','Chena Hot Springs and aurora',tour='chena',wear=1)],
+    [slot('heritage','1:00–6:30 p.m.','Fairbanks Heritage Tour',tour='heritage',wear=2),
+     slot('glass','9:30 p.m.–2:30 a.m. next day','Cleary Summit aurora glass house','Have dinner in town first. This five-hour tour includes transport on the pickup option. A typical pickup window is 9:00–9:40 p.m.; check the operator text, and allow for a variable return.',wear=2)],
+    [slot('rest','Daytime and evening','Holiday lunch and rest',c['days'][4][1])],
+    [slot('departure','Before departure','Hotel checkout and airport shuttle',c['days'][5][1])],
+   ]
+  else:
+   slots=[
+    [slot('arrival','抵達後','機場接駁與入住',c['days'][0][1])],
+    [slot('sled','09:30–約 17:45','狗拉雪橇＋馴鹿',tour='sled',wear=0),
+     slot('lodge','晚上至翌日約 02:30','Aurora Borealis Lodge 暖屋追光','先吃晚餐。接車參考時段為 21:30–22:05，依團方通知；約翌日 02:30 回飯店。',wear=2)],
+    [slot('supplies','白天','補眠與採買','前一晚較晚回來，上午留空。下午出團前可補買食物和飲水。'),
+     slot('chena','16:00–翌日約 02:00','珍娜溫泉＋追極光',tour='chena',wear=1)],
+    [slot('heritage','13:00–約 18:30','費爾班克斯市區巡禮',tour='heritage',wear=2),
+     slot('glass','21:30–翌日約 02:30','Cleary Summit 玻璃屋追光','先回市區吃晚餐。含交通方案約五小時；接車參考時段 21:00–21:40，實際看簡訊，回程可能浮動。',wear=2)],
+    [slot('rest','白天與晚上','感恩節午餐與休息',c['days'][4][1])],
+    [slot('departure','起飛前','退房與機場接駁',c['days'][5][1])],
+   ]
+  days=''.join(f'<article class="fb-day" id="day-{i}"><div class="fb-day-heading"><p class="eyebrow">DAY {i:02}</p><h3>{escape(title)}</h3></div><div class="fb-slots">{"".join(slots[i-1])}</div></article>' for i,(title,_) in enumerate(c['days'],1))
   wear=''.join(f'<li><strong>{escape(t)}</strong><p>{escape(p)}</p></li>' for t,p in c['wear'])
   refs=''.join(f'<li><a href="{u}">{escape(n)}</a></li>' for n,u in zip(c['links'],URLS))
   brand=f'<a class="brand" href="{own}index.html"><span class="seal" aria-hidden="true">∞</span><span>Sheng Exploration<small>SHENG EXPLORATION</small></span></a>'
@@ -100,9 +132,8 @@ def render(dist):
 <body><a class="skip" href="#main">{c['skip']}</a><header>{brand}<nav class="language-switch" aria-label="Language">{links}</nav></header><main id="main" class="fb"><nav class="breadcrumbs">{home} / <a href="{own}themes/nature-outdoors/">{c['theme']}</a></nav>
 <section class="fb-hero"><p class="eyebrow">ALASKA IN WINTER</p><h1>{escape(c['title'])}</h1><p>{escape(c['intro'])}</p></section>
 <nav class="tabs">{nav}</nav><p class="fb-note">{escape(c['notice'])}</p>
-<section id="plan"><h2>{c['plan']}</h2><ol class="fb-jump">{dates}</ol><div class="fb-grid">{days}</div></section>
-<section id="tours"><h2>{c['tours']}</h2>{detail}</section>
-<section id="pack"><h2>{c['pack']}</h2><ul class="fb-wear">{wear}</ul></section>
+<section id="plan"><h2>{c['plan']}</h2><ol class="fb-jump">{dates}</ol><div class="fb-grid" id="tours">{days}</div></section>
+<section id="pack"><details class="fb-detail fb-pack"><summary><strong>{c['pack']}</strong></summary><ul class="fb-wear">{wear}</ul></details></section>
 <section id="refs"><h2>{c['refs']}</h2><ul class="fb-links">{refs}</ul></section></main>
 <footer><strong>Sheng Exploration</strong><p>{home}</p><p id="offline-status" role="status"></p></footer></body></html>''')
   homepath=base/'index.html'
@@ -114,4 +145,5 @@ def render(dist):
   card=f'<article class="theme-card"><div><p class="eyebrow">ALASKA IN WINTER</p><h2>{escape(c["link"])}</h2><p>{escape(c["intro"])}</p><a class="cta" href="../../routes/fairbanks-winter/">{escape(c["plan"])}</a></div></article>'
   if card not in tp: theme.write_text(tp.replace('</div></main><footer>',card+'</div></main><footer>',1))
  (dist/'fairbanks.css').write_text('''
-.fb{max-width:73rem;margin-inline:auto}.fb-hero{padding:clamp(1.5rem,6vw,4rem);border-radius:1.3rem;color:#f5fffc;background:radial-gradient(ellipse at 78% 6%,#267461 0%,transparent 59%),linear-gradient(130deg,#102537,#1a4654);margin:1rem 0}.fb-hero h1{color:inherit;font-size:clamp(2rem,5.5vw,4rem);line-height:1.16;margin:.4em 0}.fb-hero .eyebrow{color:#ace4d4}.fb-hero p{max-width:57ch}.fb-note{border-left:4px solid #53968a;padding:.6rem 1rem;margin-block:1rem}.fb-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.fb-day,.fb-detail,.fb-wear li{background:#f3f8f7;color:#163137;padding:1.1rem 1.2rem;border:1px solid #c7ded9;border-radius:.85rem}.fb-day h3,.fb-day p{margin:.4rem 0 .7rem}.fb section{scroll-margin-top:7rem}.fb article,.fb details{scroll-margin-top:7rem}.fb-detail{margin-bottom:1rem}.fb-detail summary{cursor:pointer;font-size:1.18rem}.fb-detail summary small{display:block;margin:.35rem 0 0 1.2rem;font-size:.94rem}.fb-detail li p,.fb-wear p{margin:.25rem 0 .7rem}.fb-wear,.fb-jump,.fb-links{display:flex;flex-wrap:wrap;gap:.7rem;list-style:none;padding:0}.fb-wear>li{flex:1 1 15rem}.fb-jump a,.fb-links a,.fb-home-link{display:inline-block;padding:.45rem .68rem}.fb a:focus-visible{outline:3px solid #245f57;outline-offset:3px}@media(max-width:52rem){.fb-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:36rem){.fb-grid{grid-template-columns:1fr}.fb-hero{padding:1.5rem}.fb-detail ol{padding-left:1.35rem}}''')
+.fb{max-width:73rem;margin-inline:auto}.fb-hero{padding:clamp(1.5rem,6vw,4rem);border-radius:1.3rem;color:#f5fffc;background:radial-gradient(ellipse at 78% 6%,#267461 0%,transparent 59%),linear-gradient(130deg,#102537,#1a4654);margin:1rem 0}.fb-hero h1{color:inherit;font-size:clamp(2rem,5.5vw,4rem);line-height:1.16;margin:.4em 0}.fb-hero .eyebrow{color:#ace4d4}.fb-hero p{max-width:57ch}.fb-note{border-left:4px solid #53968a;padding:.6rem 1rem;margin-block:1rem}.fb-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.fb-day,.fb-detail,.fb-wear li{background:#f3f8f7;color:#163137;padding:1.1rem 1.2rem;border:1px solid #c7ded9;border-radius:.85rem}.fb-day h3,.fb-day p{margin:.4rem 0 .7rem}.fb section{scroll-margin-top:7rem}.fb article,.fb details{scroll-margin-top:7rem}.fb-detail{margin-bottom:1rem}.fb-detail summary{cursor:pointer;font-size:1.18rem}.fb-detail summary small{display:block;margin:.35rem 0 0 1.2rem;font-size:.94rem}.fb-detail li p,.fb-wear p{margin:.25rem 0 .7rem}.fb-wear,.fb-jump,.fb-links{display:flex;flex-wrap:wrap;gap:.7rem;list-style:none;padding:0}.fb-wear>li{flex:1 1 15rem}.fb-jump a,.fb-links a,.fb-home-link{display:inline-block;padding:.45rem .68rem}.fb a:focus-visible{outline:3px solid #245f57;outline-offset:3px}@media(max-width:52rem){.fb-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:36rem){.fb-grid{grid-template-columns:1fr}.fb-hero{padding:1.5rem}.fb-detail ol{padding-left:1.35rem}}
+.fb-grid{grid-template-columns:1fr}.fb-day{display:grid;grid-template-columns:minmax(10rem,1fr) minmax(0,3fr);gap:1rem}.fb-day-heading h3{font-size:1.2rem}.fb-slots{min-width:0;display:grid;gap:.55rem}.fb-detail{margin:0;background:#fff;padding:0;overflow:hidden}.fb-detail summary{list-style:none;display:flex;flex-wrap:wrap;gap:.22rem .7rem;align-items:baseline;position:relative;padding:.75rem 2.65rem .75rem .85rem;min-height:2.75rem;line-height:1.42}.fb-detail summary::-webkit-details-marker{display:none}.fb-detail summary::after{content:"+";position:absolute;right:1rem;top:.7rem;font-weight:800;color:#245f57}.fb-detail[open] summary::after{content:"−"}.fb-detail[open] summary{background:#e5f3ef}.fb-detail summary:focus-visible{outline:3px solid #245f57;outline-offset:-3px}.fb-time{font-size:.95rem;font-weight:700;color:#315e57;font-variant-numeric:tabular-nums}.fb-detail-body{padding:.65rem .9rem .85rem}.fb-detail-body>ol{padding-inline-start:1.5rem}.fb-provider,.fb-gear{font-size:1rem}.fb-gear{border-top:1px solid #c7ded9;padding-top:.65rem}.fb-pack .fb-wear{padding:0 .8rem .8rem}.fb #tours{scroll-margin-top:7rem}@media(max-width:45rem){.fb-day{grid-template-columns:1fr;gap:.25rem;padding:.8rem}.fb-day-heading{display:flex;gap:.65rem;align-items:baseline;flex-wrap:wrap}.fb-day-heading h3,.fb-day-heading p{margin:.2rem 0 .45rem}.fb-detail summary strong{font-size:1.08rem}}''')
